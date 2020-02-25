@@ -4,9 +4,10 @@ const colors = document.getElementsByClassName("jsColor");
 const range = document.getElementById("jsRange");
 const mode = document.getElementById("jsMode");
 const saveBtn = document.getElementById("jsSave");
+const clearBtn = document.getElementById("jsClear");
 
 const INITIAL_COLOR = "#2c2c2c";
-const CANVAS_SIZE = 700;
+const CANVAS_SIZE = 800;
 
 canvas.width = CANVAS_SIZE;
 canvas.height = CANVAS_SIZE;
@@ -32,14 +33,12 @@ function startPainting() {
 function onMouseMove(event) {
   const x = event.offsetX;
   const y = event.offsetY;
-  console.log("creating path in ", x, y);
   if(!painting) {
       ctx.beginPath();
       ctx.moveTo(x, y);
   } else {
       ctx.lineTo(x, y);
       ctx.stroke();
-      console.log("creating line in ", x, y);
   }
 }
 
@@ -84,6 +83,10 @@ function handleSaveClick(event) {
     link.click();
 }
 
+function handleClearClick(event) {
+        ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+}
+
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startPainting);
@@ -109,4 +112,8 @@ if(mode) {
 
 if(saveBtn) {
     saveBtn.addEventListener("click", handleSaveClick);
+}
+
+if(clearBtn) {
+    clearBtn.addEventListener("click", handleClearClick);
 }
